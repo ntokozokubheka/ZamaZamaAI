@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Task Planner & Summarizer</title>
+    <link rel="stylesheet" href="css/planner.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>CareerSuite AI</h2>
+        <nav>
+            <a href="index.html">🔍 Job Search</a>
+            <a href="resume.html">📄 ATS Resume Engine</a>
+            <a href="email.html">✉️ Recruiter Outreach</a>
+            <a href="prep.html">🎯 Interview Prep</a>
+            <a href="chatbot.html">💬 AI Career Coach</a>
+            <a href="planner.html" class="active">📅 AI Task Planner</a>
+        </nav>
+    </div>
+    <div class="main-wrapper">
+        <header>
+            <h1>AI Executive Summary & Sprint Planner</h1>
+            <p>Transform raw meeting notes, unorganized transcripts, or long brain-dumps into optimized roadmap agendas.</p>
+        </header>
+
+        <div class="api-key-container" id="apiKeyZone">
+            <input type="password" id="geminiApiKey" class="form-control" placeholder="Enter your Google Gemini API Key to authenticate...">
+        </div>
+
+        <div class="grid-layout">
+            <!-- Input Section -->
+            <div class="card">
+                <h3>Raw Context Input</h3>
+                <form id="plannerForm">
+                    <div class="form-group">
+                        <label for="rawNotesText">Paste Meeting Notes, Transcripts, or Raw Tasks</label>
+                        <textarea id="rawNotesText" class="form-control" placeholder="e.g., Notes from standup: Dev team needs to fix the SQL database deadlocks by next Tuesday. Ntokozo to coordinate the Azure migration plan before end of the month. We also need to rewrite the frontend components next quarter..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="planningHorizon">Target Planning Horizon</label>
+                        <select id="planningHorizon" class="form-control select-control">
+                            <option value="Week">Generate Focused Weekly Sprint Agenda</option>
+                            <option value="Month">Generate Monthly Milestone Roadmap</option>
+                            <option value="Year">Generate High-Level Annual Strategy</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn">Process & Plan Agenda</button>
+                </form>
+            </div>
+
+            <!-- Output Display Section -->
+            <div class="card">
+                <h3>Structured Matrix Output</h3>
+                <div id="plannerOutput" class="output-box-container">
+                    <p class="empty-state">Submit unstructured raw context parameters to display processed results.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/planner.js"></script>
+</body>
+</html>
