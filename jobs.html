@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZamaZama AI - Dynamic Job Stream</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>ZamaZama <span>AI</span></h1>
+        <nav class="tab-navigation">
+            <a href="index.html" class="nav-link">🏠 Home</a>
+            <a href="jobs.html" class="nav-link active">🔍 1. API Job Scanner</a>
+            <a href="aps.html" class="nav-link">📊 2. APS Matrix Gate</a>
+            <a href="resume.html" class="nav-link">📄 3. ATS Context Builder</a>
+            <a href="email.html" class="nav-link">✉️ 4. Recruitment Outreach</a>
+        </nav>
+    </header>
+
+    <main class="workspace-container">
+        <div class="split-layout">
+            <!-- Parameter Selection Panel -->
+            <div class="panel input-panel">
+                <h2>API Query Matrix</h2>
+                <p class="section-desc">Poll live developer, cloud engineering, and technical analyst postings straight from distributed public repository nodes.</p>
+                
+                <form id="apiJobForm" style="margin-top: 1.5rem;">
+                    <div class="form-group">
+                        <label for="techStackKeyword">Target Framework / Core Tech</label>
+                        <input type="text" id="techStackKeyword" value="C#" placeholder="e.g., C#, Python, Developer, AWS">
+                    </div>
+                    <button type="submit" class="primary-btn">Dispatch Live API Fetch 📡</button>
+                </form>
+
+                <div id="apiStatusDisplay" style="margin-top: 1rem; font-size: 0.85rem; color: #64748b;">
+                    System Status: <span style="color: #10b981; font-weight: bold;">Ready</span>
+                </div>
+            </div>
+
+            <!-- Asynchronous Live Feed Panel -->
+            <div class="panel preview-panel">
+                <h2>Live Broadcast Results</h2>
+                <div id="liveJobsOutputWrapper" class="job-list-container">
+                    <p style="color: #64748b; text-align: center; padding-top: 4rem;">Awaiting target parameters to dispatch network request packet...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>

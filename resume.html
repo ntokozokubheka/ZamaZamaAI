@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Resume Optimizer</title>
+    <link rel="stylesheet" href="css/resume.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>CareerSuite AI</h2>
+        <nav>
+            <a href="index.html">🔍 Job Search</a>
+            <a href="resume.html" class="active">📄 ATS Resume Engine</a>
+            <a href="email.html">✉️ Recruiter Outreach</a>
+            <a href="prep.html">🎯 Interview Prep</a>
+            <a href="chatbot.html">💬 AI Career Coach</a>
+        </nav>
+    </div>
+    <div class="main-wrapper">
+        <header>
+            <h1>ATS Resume Optimizer Engine</h1>
+            <p>Inject parsing-optimized syntax structures to maximize match relevance scores.</p>
+        </header>
+        <div class="grid-layout">
+            <div class="card">
+                <h3>Source Context Extraction</h3>
+                <form id="resumeForm">
+                    <div class="form-group">
+                        <label for="rawResumeText">Current Experience / Summary Profile</label>
+                        <textarea id="rawResumeText" class="form-control" placeholder="Paste your profile text summary..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="targetJobDesc">Target Role Description Specifications</label>
+                        <textarea id="targetJobDesc" class="form-control" placeholder="Paste structural requirements text..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Synthesize Profile Block</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>Optimized Core Layout Block</h3>
+                <div id="resumeOutput" class="output-box">Awaiting execution data parameters...</div>
+                <button id="copyResumeBtn" class="btn copy-btn" disabled>Copy Processed Summary</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/resume.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZamaZama AI - South African Score Auditor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>ZamaZama <span>AI</span></h1>
+        <nav class="tab-navigation">
+            <a href="index.html" class="nav-link">🏠 Home</a>
+            <a href="jobs.html" class="nav-link">🔍 1. API Job Scanner</a>
+            <a href="aps.html" class="nav-link active">📊 2. APS Matrix Gate</a>
+            <a href="resume.html" class="nav-link">📄 3. ATS Context Builder</a>
+            <a href="email.html" class="nav-link">✉️ 4. Recruitment Outreach</a>
+        </nav>
+    </header>
+
+    <main class="workspace-container">
+        <div class="split-layout">
+            <div class="panel input-panel">
+                <h2>APS Logic Configurator</h2>
+                <p class="section-desc">Many South African graduate tracks employ strict automated processing logic matching your National Senior Certificate (NSC) results.</p>
+                
+                <form id="apsCalculationForm" style="margin-top: 1.5rem;">
+                    <div class="form-group">
+                        <label for="subjectMaths">Core Mathematics (Percentage %)</label>
+                        <input type="number" id="subjectMaths" min="0" max="100" value="75" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subjectEnglish">English (Home / First Additional %)</label>
+                        <input type="number" id="subjectEnglish" min="0" max="100" value="72" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject3">Subject 3 Percentage</label>
+                        <input type="number" id="subject3" min="0" max="100" value="70" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject4">Subject 4 Percentage</label>
+                        <input type="number" id="subject4" min="0" max="100" value="68" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject5">Subject 5 Percentage</label>
+                        <input type="number" id="subject5" min="0" max="100" value="65" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject6">Subject 6 Percentage</label>
+                        <input type="number" id="subject6" min="0" max="100" value="64" required>
+                    </div>
+                    <button type="submit" class="primary-btn">Compute Mathematical APS Metrics</button>
+                </form>
+            </div>
+
+            <div class="panel preview-panel">
+                <h2>Corporate Gateway Compliance Audit</h2>
+                <div id="apsAuditResultsDisplay" class="output-placeholder">
+                    Awaiting local grading matrices to execute computational analysis...
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="app.js"></script>
+</body>
+</html>

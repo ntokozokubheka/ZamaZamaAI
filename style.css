@@ -1,54 +1,59 @@
 :root {
-    --bg-primary: #f1f5f9;
+    --bg-primary: #f8fafc;
     --panel-bg: #ffffff;
     --text-main: #0f172a;
     --accent-color: #2563eb;
     --accent-hover: #1d4ed8;
-    --border-color: #cbd5e1;
+    --border-color: #e2e8f0;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-body { background: var(--bg-primary); color: var(--text-main); padding: 2rem; }
+body { background: var(--bg-primary); color: var(--text-main); padding: 2.5rem 1.5rem; }
 
-.app-header { text-align: center; margin-bottom: 2rem; }
-.app-header span { color: var(--accent-color); }
-.app-header p { color: #64748b; margin-top: 0.25rem; }
+.app-header { text-align: center; margin-bottom: 2.5rem; }
+.app-header span { color: var(--accent-color); font-weight: 800; }
 
-/* Navigation Tab UI styling */
-.tab-navigation { display: flex; justify-content: center; gap: 1rem; margin-top: 1.5rem; }
-.nav-tab { padding: 0.75rem 1.5rem; border: 1px solid var(--border-color); background: #e2e8f0; font-weight: 600; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
-.nav-tab.active { background: var(--accent-color); color: white; border-color: var(--accent-color); }
+.tab-navigation { display: flex; justify-content: center; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.nav-link { padding: 0.65rem 1.25rem; border: 1px solid var(--border-color); background: #e2e8f0; font-weight: 600; border-radius: 8px; text-decoration: none; color: var(--text-main); font-size: 0.9rem; transition: all 0.2s; }
+.nav-link:hover { background: #cbd5e1; }
+.nav-link.active { background: var(--accent-color); color: white; border-color: var(--accent-color); }
 
-/* Tab Visibility Logic Control */
-.tab-content { display: none; max-width: 1300px; margin: 0 auto; }
-.tab-content.active-content { display: block; }
-
+.workspace-container { max-width: 1300px; margin: 0 auto; }
 .split-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-@media (max-width: 900px) { .split-layout { grid-template-columns: 1fr; } }
+@media (max-width: 950px) { .split-layout { grid-template-columns: 1fr; } }
 
-.panel { background: white; border: 1px solid #e2e8f0; padding: 2rem; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+.panel { background: white; border: 1px solid var(--border-color); padding: 2rem; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
 .single-panel { max-width: 800px; margin: 0 auto; }
-.section-desc { color: #64748b; margin-bottom: 1.5rem; }
+.text-center { text-align: center; }
+.section-desc { color: #64748b; font-size: 0.95rem; margin-top: 0.25rem; line-height: 1.5; }
 
 .form-group { margin-bottom: 1.25rem; }
-label { display: block; font-weight: 600; margin-bottom: 0.35rem; font-size: 0.9rem; }
-input, textarea, select { width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 6px; font-size: 0.95rem; background: #f8fafc; }
+label { display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.88rem; color: #334155; }
+input, textarea, select { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.95rem; background: #fff; color: var(--text-main); }
+input:focus, textarea:focus, select:focus { outline: 2px solid var(--accent-color); }
 
-.primary-btn, .export-btn { width: 100%; padding: 0.85rem; background: var(--accent-color); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+.primary-btn, .export-btn { width: 100%; padding: 0.85rem; background: var(--accent-color); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.15s; }
+.primary-btn:hover { background: var(--accent-hover); }
+.primary-btn-link { display: inline-block; padding: 0.85rem 2rem; background: var(--accent-color); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; }
 .export-btn { background: #10b981; margin-top: 1rem; }
+.export-btn:hover { background: #059669; }
 .export-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
 
-.output-placeholder { border: 2px dashed #e2e8f0; padding: 1.5rem; border-radius: 6px; background: #f8fafc; min-height: 250px; white-space: pre-line; }
+.output-placeholder { border: 2px dashed #cbd5e1; padding: 1.5rem; border-radius: 6px; background: #f8fafc; min-height: 280px; font-size: 0.95rem; color: #334155; line-height: 1.65; overflow-y: auto; }
 
-/* Job Feed Card Elements styling */
-.job-card { border: 1px solid #e2e8f0; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; background: #fff; transition: transform 0.2s; }
-.job-card:hover { transform: translateY(-2px); border-color: var(--accent-color); }
-.job-info h3 { font-size: 1.1rem; color: #1e293b; }
-.job-info p { color: #64748b; font-size: 0.9rem; margin-top: 0.25rem; }
-.view-job-link { padding: 0.5rem 1rem; background: #f1f5f9; text-decoration: none; color: var(--accent-color); font-weight: 600; border-radius: 6px; border: 1px solid var(--border-color); }
+/* Async Job Card Dynamic Render Elements */
+.api-job-card { border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem; background: #fff; border-left: 4px solid var(--accent-color); }
+.api-job-card h3 { font-size: 1.1rem; color: #1e293b; margin-bottom: 0.35rem; }
+.api-job-card p { color: #475569; font-size: 0.9rem; margin-bottom: 0.75rem; }
+.tag-container { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.job-tag { background: #eff6ff; color: #1d4ed8; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 4px; text-transform: uppercase; }
+.apply-btn-anchor { display: inline-block; padding: 0.5rem 1.25rem; background: #f1f5f9; text-decoration: none; color: var(--accent-color); font-weight: 700; border-radius: 6px; border: 1px solid var(--border-color); font-size: 0.85rem; transition: all 0.15s; }
+.apply-btn-anchor:hover { background: var(--accent-color); color: white; }
 
-/* Modal Elements styling */
-.modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(15,23,42,0.6); display:none; align-items:center; justify-content:center; }
-.modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width:90%; }
-.warning-text { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 0.5rem; margin: 1rem 0; font-size: 0.85rem; }
-.checkbox-container { display: flex; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 1.5rem; }
+/* Modals layers */
+.modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(15,23,42,0.6); display:none; align-items:center; justify-content:center; z-index: 100; }
+.modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width:90%; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+.warning-text { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 0.75rem; margin: 1rem 0; font-size: 0.85rem; color: #b45309; border-radius: 0 4px 4px 0; }
+.checkbox-container { display: flex; gap: 0.5rem; font-size: 0.85rem; margin-bottom: 1.5rem; cursor: pointer; align-items: flex-start; user-select: none; }
+.checkbox-container input { width: auto; margin-top: 0.15rem; }
 .modal-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+.secondary-btn { padding: 0.75rem 1rem; background: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; color: #475569; }

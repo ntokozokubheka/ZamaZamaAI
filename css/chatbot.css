@@ -1,0 +1,29 @@
+:root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --primary: #2563eb;
+    --text: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
+.sidebar { width: 260px; background: #0f172a; padding: 2rem 1rem; position: fixed; height: 100vh; }
+.sidebar h2 { color: #38bdf8; font-size: 1.25rem; margin-bottom: 2rem; padding-left: 0.5rem; }
+.sidebar nav a { display: block; color: #94a3b8; text-decoration: none; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 6px; }
+.sidebar nav a:hover, .sidebar nav a.active { background: #1e293b; color: #fff; }
+.sidebar nav a.active { border-left: 4px solid var(--primary); }
+.main-wrapper { margin-left: 260px; flex-grow: 1; padding: 3rem; max-width: 1200px; display: flex; flex-direction: column; }
+header { margin-bottom: 1.5rem; }
+header h1 { font-size: 1.85rem; margin-bottom: 0.35rem; }
+header p { color: var(--muted); }
+.chatbot-container { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; flex-direction: column; flex-grow: 1; min-height: 480px; max-height: 600px; }
+.api-key-container { margin-bottom: 1rem; background: #f1f5f9; padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border); }
+.api-key-container input { background: #fff; font-size: 0.85rem; padding: 0.5rem; width: 100%; border: 1px solid var(--border); border-radius: 4px; }
+.stream-container { flex-grow: 1; overflow-y: auto; border: 1px solid var(--border); border-radius: 6px; padding: 1rem; background: #f8fafc; margin-bottom: 1rem; display: flex; flex-direction: column; }
+.chat-bubble { margin-bottom: 1rem; padding: 0.75rem 1rem; border-radius: 8px; max-width: 80%; font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap; }
+.chat-user { background: #e0f2fe; margin-left: auto; color: #0369a1; border-bottom-right-radius: 2px; }
+.chat-ai { background: white; margin-right: auto; color: #334155; border-bottom-left-radius: 2px; border: 1px solid var(--border); }
+.input-form { display: flex; gap: 0.75rem; }
+.input-form input { flex-grow: 1; padding: 0.65rem; border: 1px solid var(--border); border-radius: 6px; outline: none; }
+.send-btn { width: auto; padding: 0.65rem 1.5rem; }

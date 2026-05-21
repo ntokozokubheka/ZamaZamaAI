@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Outreach</title>
+    <link rel="stylesheet" href="css/email.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>CareerSuite AI</h2>
+        <nav>
+            <a href="index.html">🔍 Job Search</a>
+            <a href="resume.html">📄 ATS Resume Engine</a>
+            <a href="email.html" class="active">✉️ Recruiter Outreach</a>
+            <a href="prep.html">🎯 Interview Prep</a>
+            <a href="chatbot.html">💬 AI Career Coach</a>
+        </nav>
+    </div>
+    <div class="main-wrapper">
+        <header>
+            <h1>Recruiter Outreach Draft Machine</h1>
+            <p>Instantly construct targeted communication strings for open application nodes.</p>
+        </header>
+        <div class="grid-layout">
+            <div class="card">
+                <h3>Outreach Configurations</h3>
+                <form id="outreachForm">
+                    <div class="form-group">
+                        <label for="companyName">Target Company Entity</label>
+                        <input type="text" id="companyName" class="form-control" placeholder="e.g., Nedbank, Apex Systems" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobTitle">Target Job Role Designation</label>
+                        <input type="text" id="jobTitle" class="form-control" placeholder="e.g., Cloud Learner, Software Developer" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactName">Hiring Manager Name (Optional)</label>
+                        <input type="text" id="contactName" class="form-control" placeholder="e.g., Ms. Govender, Engineering Lead">
+                    </div>
+                    <button type="submit" class="btn">Compile Outreach Email</button>
+                </form>
+            </div>
+            <div class="card">
+                <h3>Compiled Outreach Matrix</h3>
+                <div id="emailOutput" class="output-box">Awaiting operational form submission inputs...</div>
+                <button id="copyEmailBtn" class="btn copy-btn" disabled>Copy Completed Message</button>
+            </div>
+        </div>
+    </div>
+    <script src="js/email.js"></script>
+</body>
+</html>

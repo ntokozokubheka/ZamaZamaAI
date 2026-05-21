@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Coach</title>
+    <link rel="stylesheet" href="css/chatbot.css">
+    <!-- Import Google Gemini Client-Side API Module Bundle -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/generative-ai": "https://esm.run/@google/generative-ai"
+        }
+      }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>CareerSuite AI</h2>
+        <nav>
+            <a href="index.html">🔍 Job Search</a>
+            <a href="resume.html">📄 ATS Resume Engine</a>
+            <a href="email.html">✉️ Recruiter Outreach</a>
+            <a href="prep.html">🎯 Interview Prep</a>
+            <a href="chatbot.html" class="active">💬 AI Career Coach</a>
+        </nav>
+    </div>
+    <div class="main-wrapper">
+        <header>
+            <h1>AI Career Coach & Mock Interviewer</h1>
+            <p>Simulate behavioral and technical technical interview conditions over native API runtime loops.</p>
+        </header>
+        <div class="chatbot-container">
+            <div class="api-key-container" id="apiKeyZone">
+                <input type="password" id="geminiApiKey" class="form-control" placeholder="Enter your Google Gemini API Key...">
+                <p style="font-size:0.75rem; color:#64748b; margin-top:0.25rem;">Keys are processed completely within your local browser sandbox layer.</p>
+            </div>
+            <div id="chatMessageStream" class="stream-container">
+                <div class="chat-bubble chat-ai">
+                    <strong>Coach:</strong> Interface operational. Input your credentials block above, then let me know what profile, role target, or mock sprint strategy parameters you want to simulate.
+                </div>
+            </div>
+            <form id="chatbotInputForm" class="input-form">
+                <input type="text" id="userChatMessageInput" class="form-control" placeholder="Type your response or question string..." required autocomplete="off">
+                <button type="submit" class="btn send-btn">Send Node</button>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="js/chatbot.js"></script>
+</body>
+</html>
