@@ -3,44 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Search Hub</title>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <title>CareerSuite AI - Workspace Portal</title>
+    <style>
+        /* ==========================================================================
+           1. ROOT SYSTEM RESETS & VARIABLE BASELINE
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #020617;
+            overflow: hidden;
+        }
+
+        /* ==========================================================================
+           2. CINEMATIC LANDING PORTAL VISUAL ARCHITECTURE
+           ========================================================================== */
+        #splashPortalStage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            background-color: #020617;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: opacity 0.8s cubic-bezier(0.76, 0, 0.24, 1), visibility 0.8s;
+        }
+
+        /* Ambient Dynamic Video Layer */
+        .video-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .video-bg-container iframe {
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.77vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.35;
+        }
+
+        /* Abstract Interaction Canvas Layer */
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Deep Color Mask Overlay */
+        .glass-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 20%, #020617 85%);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Main Content Portal Container */
+        .portal-core {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.5s ease;
+        }
+
+        /* Out-of-bounds warp animation trigger class */
+        .portal-warp-active {
+            transform: scale(2.2) rotate(10deg);
+            opacity: 0;
+        }
+
+        .system-badge {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: pulse-border 3s infinite alternate;
+        }
+
+        .portal-core h1 {
+            color: #f8fafc;
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            max-width: 600px;
+        }
+
+        .portal-core h1 span {
+            background: linear-gradient(to right, #3b82f6, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 1.15rem;
+            max-width: 480px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* The Quantum Core Redirect Button */
+        .quantum-btn {
+            position: relative;
+            background: #ffffff;
+            color: #020617;
+            padding: 1.25rem 2.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .quantum-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4), 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        @keyframes pulse-border {
+            0% { border-color: rgba(59, 130, 246, 0.2); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+            100% { border-color: rgba(147, 51, 234, 0.6); box-shadow: 0 0 12px rgba(147, 51, 234, 0.2); }
+        }
+
+        /* ==========================================================================
+           3. APPLICATION DASHBOARD ARCHITECTURE BLOCK
+           ========================================================================== */
+        #mainApplicationWorkspace {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: scale(0.96);
+            transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none; /* Prevent interaction until stage initializes */
+        }
+
+        /* Activation state triggered by the Core State Engine */
+        #mainApplicationWorkspace.workspace-ready {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+
+        /* Re-incorporate original dashboard structure rules safely */
+        .sidebar {
+            width: 260px;
+            background-color: #0f172a;
+            border-right: 1px solid #1e293b;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sidebar h2 {
+            color: #f8fafc;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .sidebar nav a {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar nav a:hover, .sidebar nav a.active {
+            color: #f8fafc;
+            background-color: #1e293b;
+        }
+
+        .sidebar nav a.active {
+            border-left: 3px solid #3b82f6;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            height: 100%;
+            overflow-y: auto;
+            background-color: #020617;
+            padding: 2.5rem;
+        }
+
+        header {
+            margin-bottom: 2.5rem;
+        }
+
+        header h1 {
+            color: #f8fafc;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #64748b;
+            font-size: 1rem;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.25fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: #0f172a;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 1.75rem;
+        }
+
+        .card h3 {
+            color: #f8fafc;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: #f8fafc;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus {
+            border-color: #3b82f6;
+        }
+
+        .btn {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #2563eb;
+        }
+
+        .stream-container {
+            background-color: #020617;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .empty-state {
+            color: #475569;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>CareerSuite AI</h2>
-        <nav>
-            <a href="index.html" class="active">🔍 Job Search</a>
-            <a href="resume.html">📄 ATS Resume Engine</a>
-            <a href="email.html">✉️ Recruiter Outreach</a>
-            <a href="prep.html">🎯 Interview Prep</a>
-            <a href="chatbot.html">💬 AI Career Coach</a>
-        </nav>
+
+    <!-- ==========================================================================
+       STAGE A: SCREEN SPACE INTERACTIVE OVERLAY
+       ========================================================================== -->
+    <div id="splashPortalStage">
+        <div class="video-bg-container">
+            <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&mute=1&controls=0&loop=1&playlist=ScMzIvxBSi4&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+        </div>
+        <canvas id="particleCanvas"></canvas>
+        <div class="glass-overlay"></div>
+
+        <main class="portal-core" id="portalFrame">
+            <div class="system-badge">System Core Online</div>
+            <h1>Accelerate Your <span>Career Pipeline</span></h1>
+            <p class="subtitle">Deploy targeted parsing engines, orchestrate live pipeline data feeds, and optimize communication loops instantly.</p>
+            <button class="quantum-btn" id="portalTrigger">Initialize Workspace</button>
+        </main>
     </div>
-    <div class="main-wrapper">
-        <header>
-            <h1>Live Job Pipeline Finder</h1>
-            <p>Query open engineering and development roles dynamically via live CORS-supported index feeds.</p>
-        </header>
-        <div class="grid-layout">
-            <div class="card">
-                <h3>Target Filters</h3>
-                <form id="jobSearchForm">
-                    <div class="form-group">
-                        <label for="jobTitleInput">Key Keyword Spec (e.g., React, Developer, C#)</label>
-                        <input type="text" id="jobTitleInput" class="form-control" placeholder="Search tech terms..." required>
+
+    <!-- ==========================================================================
+       STAGE B: ACTUAL APPLICATION FUNCTIONAL GRID WORKSPACE
+       ========================================================================== -->
+    <div id="mainApplicationWorkspace">
+        <div class="sidebar">
+            <h2>CareerSuite AI</h2>
+            <nav>
+                <a href="index.html" class="active">🔍 Job Search</a>
+                <a href="resume.html">📄 ATS Resume Engine</a>
+                <a href="email.html">✉️ Recruiter Outreach</a>
+                <a href="prep.html">🎯 Interview Prep</a>
+                <a href="chatbot.html">💬 AI Career Coach</a>
+                <a href="planner.html">📅 AI Task Planner</a>
+            </nav>
+        </div>
+        
+        <div class="main-wrapper">
+            <header>
+                <h1>Live Job Pipeline Finder</h1>
+                <p>Query open engineering and development roles dynamically via live CORS-supported index feeds.</p>
+            </header>
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>Target Filters</h3>
+                    <form id="jobSearchForm">
+                        <div class="form-group">
+                            <label for="jobTitleInput">Key Keyword Spec (e.g., React, Developer, C#)</label>
+                            <input type="text" id="jobTitleInput" class="form-control" placeholder="Search tech terms..." required>
+                        </div>
+                        <button type="submit" class="btn">Fetch Live Jobs</button>
+                    </form>
+                </div>
+                <div class="card">
+                    <h3>Dispatched Match Results</h3>
+                    <div id="jobResultsStream" class="stream-container">
+                        <p class="empty-state">Configure search criteria to clear the active pipeline.</p>
                     </div>
-                    <button type="submit" class="btn">Fetch Live Jobs</button>
-                </form>
-            </div>
-            <div class="card">
-                <h3>Dispatched Match Results</h3>
-                <div id="jobResultsStream" class="stream-container">
-                    <p class="empty-state">Configure search criteria to clear the active pipeline.</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- ==========================================================================
+       ORCHESTRATION ARCHITECTURE SCRIPT LOOPS
+       ========================================================================== -->
+    <script>
+        // --- 1. Generative Matrix Background System ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class WaveParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(147, 51, 234, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for(let i = 0; i < 65; i++) particles.push(new WaveParticle());
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+        initParticles();
+        animateParticles();
+
+        // --- 2. Single-Page State Transition Controller ---
+        const trigger = document.getElementById('portalTrigger');
+        const portalFrame = document.getElementById('portalFrame');
+        const splashStage = document.getElementById('splashPortalStage');
+        const applicationWorkspace = document.getElementById('mainApplicationWorkspace');
+
+        trigger.addEventListener('click', () => {
+            // Trigger the warp scaling explosion animation on text blocks
+            portalFrame.classList.add('portal-warp-active');
+            
+            // Fade out the entire splash overlay stage
+            splashStage.style.opacity = '0';
+            splashStage.style.visibility = 'hidden';
+
+            // Bring the dashboard into view smoothly
+            applicationWorkspace.classList.add('workspace-ready');
+            
+            // Set input focus right onto your search control for streamlined usage
+            setTimeout(() => {
+                document.getElementById('jobTitleInput').focus();
+            }, 600);
+        });
+    </script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>
