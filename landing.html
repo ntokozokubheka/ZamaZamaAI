@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to CareerSuite AI</title>
+    <style>
+        /* Base Reset & Core Fluid Setup */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body, html {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #020617;
+        }
+
+        /* Ambient Dynamic Video Layer */
+        .video-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .video-bg-container iframe, 
+        .video-bg-container video {
+            width: 100vw;
+            height: 56.25vw; /* 16:9 Aspect Ratio */
+            min-height: 100vh;
+            min-width: 177.77vh; /* 16:9 Aspect Ratio */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.35; /* Blends cleanly with background slate */
+        }
+
+        /* Abstract Interaction Canvas Layer */
+        #particleCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Deep Color Mask Overlay */
+        .glass-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 20%, #020617 85%);
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        /* Main Content Portal Container */
+        .portal-core {
+            position: relative;
+            z-index: 4;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.8s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.6s ease;
+        }
+
+        /* Out-of-bounds warp animation trigger class */
+        .portal-warp-active {
+            transform: scale(2.5) rotate(15deg);
+            opacity: 0;
+        }
+
+        .system-badge {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #60a5fa;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: pulse-border 3s infinite alternate;
+        }
+
+        h1 {
+            color: #f8fafc;
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            max-width: 600px;
+        }
+
+        h1 span {
+            background: linear-gradient(to right, #3b82f6, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: #94a3b8;
+            font-size: 1.15rem;
+            max-width: 480px;
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        /* The Quantum Core Redirect Button */
+        .quantum-btn {
+            position: relative;
+            background: #ffffff;
+            color: #020617;
+            padding: 1.25rem 2.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.3s ease;
+        }
+
+        .quantum-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4), 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        .quantum-btn:active {
+            transform: translateY(1px);
+        }
+
+        /* Visual system performance animations */
+        @keyframes pulse-border {
+            0% { border-color: rgba(59, 130, 246, 0.2); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+            100% { border-color: rgba(147, 51, 234, 0.6); box-shadow: 0 0 12px rgba(147, 51, 234, 0.2); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Stream Background Panel -->
+    <div class="video-bg-container">
+        <!-- Option A: Embedded looping abstract technological background video -->
+        <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&mute=1&controls=0&loop=1&playlist=ScMzIvxBSi4&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
+    </div>
+
+    <!-- Generative Motion Particle Sandbox -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Deep Ambient Blend Filter -->
+    <div class="glass-overlay"></div>
+
+    <!-- Active Structural Interactive Node Frame -->
+    <main class="portal-core" id="portalFrame">
+        <div class="system-badge">System Core Online</div>
+        <h1>Accelerate Your <span>Career Pipeline</span></h1>
+        <p class="subtitle">Deploy targeted parsing engines, orchestrate live pipeline data feeds, and optimize communication loops instantly.</p>
+        
+        <button class="quantum-btn" id="portalTrigger">
+            Initialize Workspace
+        </button>
+    </main>
+
+    <!-- Interactive Layer Orchestration Logic Scripts -->
+    <script>
+        // --- Part 1: Interactive Particle Grid Animation Matrix ---
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class WaveParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = Math.random() * 0.4 - 0.2;
+                this.speedY = Math.random() * 0.4 - 0.2;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(147, 51, 234, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for(let i = 0; i < 65; i++) {
+                particles.push(new WaveParticle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        
+        initParticles();
+        animateParticles();
+
+        // --- Part 2: Warp Dispatched Redirect Handling Loop ---
+        const trigger = document.getElementById('portalTrigger');
+        const frame = document.getElementById('portalFrame');
+
+        trigger.addEventListener('click', (e) => {
+            // Apply dramatic geometric scaling explosion class transformation
+            frame.classList.add('portal-warp-active');
+            
+            // Allow the CSS bezier curve transformation logic timeline to finish (~650ms), then route native tab memory state
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 650);
+        });
+    </script>
+</body>
+</html>
