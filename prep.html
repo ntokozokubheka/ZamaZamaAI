@@ -5,8 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interview Prep Matrix</title>
     <link rel="stylesheet" href="css/prep.css">
+    
+    <!-- ==========================================================================
+       SESSION SECURITY GUARD: Verifies API Key Presence Before Component Mount
+       ========================================================================== -->
+    <script>
+        (function() {
+            const secureKey = sessionStorage.getItem('gemini_api_key');
+            if (!secureKey || secureKey.trim() === "") {
+                window.location.replace('index.html');
+            }
+        })();
+    </script>
 </head>
 <body>
+
+    <!-- ==========================================================================
+       ISOLATED STATIC BACKGROUND LAYERS
+       ========================================================================== -->
+    <div class="ambient-background-stage">
+        <canvas id="particleCanvas"></canvas>
+        <div class="glass-overlay"></div>
+    </div>
+
+    <!-- ==========================================================================
+       WORKSPACE INTERFACE LAYOUT
+       ========================================================================== -->
     <div class="sidebar">
         <h2>CareerSuite AI</h2>
         <nav>
@@ -18,28 +42,38 @@
             <a href="planner.html">📅 AI Task Planner</a>
         </nav>
     </div>
+    
+    <!-- ==========================================================================
+       CENTRALIZED CONTENT CONTAINER
+       ========================================================================== -->
     <div class="main-wrapper">
-        <header>
-            <h1>Interview Prep Matrix</h1>
-            <p>Deconstruct target job parameters into predictable interview questions and structured talking points.</p>
-        </header>
-        <div class="grid-layout">
-            <div class="card">
-                <h3>Target Specifications Input</h3>
-                <form id="prepForm">
-                    <div class="form-group">
-                        <label for="jobRequirementsSpec">Paste Job Advert / Requirements Text</label>
-                        <textarea id="jobRequirementsSpec" class="form-control" placeholder="Paste the responsibilities or tech stack requirements here..." required></textarea>
-                    </div>
-                    <button type="submit" class="btn">Extract Prep Strategy</button>
-                </form>
-            </div>
-            <div class="card">
-                <h3>Strategic Response Blueprints</h3>
-                <div id="prepOutput" class="matrix-output">Awaiting technical parameters compilation rules...</div>
+        <!-- The content-container ensures everything is aligned and centered right -->
+        <div class="content-container">
+            <header>
+                <h1>Interview Prep Matrix</h1>
+                <p>Deconstruct target job parameters into predictable interview questions and structured talking points.</p>
+            </header>
+            
+            <div class="grid-layout">
+                <div class="card">
+                    <h3>Target Specifications Input</h3>
+                    <form id="prepForm">
+                        <div class="form-group">
+                            <label for="jobRequirementsSpec">Paste Job Advert / Requirements Text</label>
+                            <textarea id="jobRequirementsSpec" class="form-control" placeholder="Paste the responsibilities or tech stack requirements here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Extract Prep Strategy</button>
+                    </form>
+                </div>
+                
+                <div class="card">
+                    <h3>Strategic Response Blueprints</h3>
+                    <div id="prepOutput" class="matrix-output">Awaiting technical parameters compilation rules...</div>
+                </div>
             </div>
         </div>
     </div>
+
     <script src="js/prep.js"></script>
 </body>
 </html>

@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Career Coach</title>
     <link rel="stylesheet" href="css/chatbot.css">
+    
+    <!-- ==========================================================================
+       SESSION SECURITY GUARD: Verifies API Key Presence Before Component Mount
+       ========================================================================== -->
+    <script>
+        (function() {
+            const secureKey = sessionStorage.getItem('gemini_api_key');
+            if (!secureKey || secureKey.trim() === "") {
+                window.location.replace('index.html');
+            }
+        })();
+    </script>
+
     <script type="importmap">
       {
         "imports": {
@@ -14,6 +27,18 @@
     </script>
 </head>
 <body>
+
+    <!-- ==========================================================================
+       ISOLATED STATIC BACKGROUND LAYERS
+       ========================================================================== -->
+    <div class="ambient-background-stage">
+        <canvas id="particleCanvas"></canvas>
+        <div class="glass-overlay"></div>
+    </div>
+
+    <!-- ==========================================================================
+       WORKSPACE INTERFACE LAYOUT
+       ========================================================================== -->
     <div class="sidebar">
         <h2>CareerSuite AI</h2>
         <nav>
@@ -25,19 +50,17 @@
             <a href="planner.html">📅 AI Task Planner</a>
         </nav>
     </div>
+    
     <div class="main-wrapper">
         <header>
             <h1>AI Career Coach & Mock Interviewer</h1>
-            <p>Simulate behavioral and technical technical interview conditions over native API runtime loops.</p>
+            <p>Simulate behavioral and technical interview conditions over native API runtime loops.</p>
         </header>
+        
         <div class="chatbot-container">
-            <div class="api-key-container" id="apiKeyZone">
-                <input type="password" id="geminiApiKey" class="form-control" placeholder="Enter your Google Gemini API Key...">
-                <p style="font-size:0.75rem; color:#64748b; margin-top:0.25rem;">Keys are processed completely within your local browser sandbox layer.</p>
-            </div>
             <div id="chatMessageStream" class="stream-container">
                 <div class="chat-bubble chat-ai">
-                    <strong>Coach:</strong> Interface operational. Input your credentials block above, then let me know what profile, role target, or mock sprint strategy parameters you want to simulate.
+                    <strong>Coach:</strong> Interface operational. Your secure API validation token is active. Let me know what profile, role target, or mock sprint strategy parameters you want to simulate.
                 </div>
             </div>
             <form id="chatbotInputForm" class="input-form">
@@ -46,6 +69,7 @@
             </form>
         </div>
     </div>
+
     <script type="module" src="js/chatbot.js"></script>
 </body>
 </html>

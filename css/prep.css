@@ -8,23 +8,53 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
 body { background: var(--bg); color: var(--text); display: flex; min-height: 100vh; }
-.sidebar { width: 260px; background: #0f172a; padding: 2rem 1rem; position: fixed; height: 100vh; }
+
+/* ==========================================================================
+   SIDEBAR LAYER STAGING (Locked Left Frame)
+   ========================================================================== */
+.sidebar { width: 260px; background: #0f172a; padding: 2rem 1rem; position: fixed; height: 100vh; top: 0; left: 0; }
 .sidebar h2 { color: #38bdf8; font-size: 1.25rem; margin-bottom: 2rem; padding-left: 0.5rem; }
 .sidebar nav a { display: block; color: #94a3b8; text-decoration: none; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 6px; }
 .sidebar nav a:hover, .sidebar nav a.active { background: #1e293b; color: #fff; }
 .sidebar nav a.active { border-left: 4px solid var(--primary); }
-.main-wrapper { margin-left: 260px; flex-grow: 1; padding: 3rem; max-width: 1200px; }
-header { margin-bottom: 2.5rem; }
+
+/* ==========================================================================
+   MAIN WORKSPACE WRAPPER (Centering Engine Framework)
+   ========================================================================== */
+.main-wrapper { 
+    margin-left: 260px; /* Accounts for the fixed sidebar width */
+    flex-grow: 1; 
+    padding: 3rem; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontally centers children cards inside the wrapper */
+    min-height: 100vh;
+}
+
+/* Centered content layout block limits */
+.content-container {
+    width: 100%;
+    max-width: 1200px; /* Maintains your max grid boundary beautifully */
+}
+
+/* Updated selector mappings to sit inside the centered engine frame */
+header { margin-bottom: 2.5rem; width: 100%; }
 header h1 { font-size: 1.85rem; margin-bottom: 0.35rem; }
 header p { color: var(--muted); }
-.grid-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; }
+
+.grid-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; width: 100%; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+
+/* ==========================================================================
+   FORM CONTROLS & INTERACTIVE STRATEGY NODES
+   ========================================================================== */
 .form-group { margin-bottom: 1.25rem; }
 .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: #475569; }
 .form-control { width: 100%; padding: 0.65rem 0.75rem; border: 1px solid var(--border); border-radius: 6px; min-height: 150px; resize: vertical; outline: none; font-size: 0.9rem; }
 .form-control:focus { border-color: var(--primary); }
 .btn { width: 100%; background: var(--primary); color: #fff; padding: 0.65rem; border: none; border-radius: 6px; font-weight: 500; cursor: pointer; }
 .btn:hover { background: #1d4ed8; }
+
 .matrix-output { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 1.25rem; min-height: 245px; font-size: 0.9rem; line-height: 1.5; color: #334155; }
 .prep-node { background: white; padding: 1rem; border-radius: 6px; border-left: 4px solid var(--primary); margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
 .prep-node h4 { color: #1e3a8a; font-size: 0.95rem; margin-bottom: 0.25rem; }

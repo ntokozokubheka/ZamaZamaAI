@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Task Planner & Summarizer</title>
     <link rel="stylesheet" href="css/planner.css">
+    
+    <!-- ==========================================================================
+       SESSION SECURITY GUARD: Verifies API Key Presence Before Component Mount
+       ========================================================================== -->
+    <script>
+        (function() {
+            const secureKey = sessionStorage.getItem('gemini_api_key');
+            if (!secureKey || secureKey.trim() === "") {
+                window.location.replace('index.html');
+            }
+        })();
+    </script>
+
     <script type="importmap">
       {
         "imports": {
@@ -14,6 +27,18 @@
     </script>
 </head>
 <body>
+
+    <!-- ==========================================================================
+       ISOLATED STATIC BACKGROUND LAYERS
+       ========================================================================== -->
+    <div class="ambient-background-stage">
+        <canvas id="particleCanvas"></canvas>
+        <div class="glass-overlay"></div>
+    </div>
+
+    <!-- ==========================================================================
+       WORKSPACE INTERFACE LAYOUT
+       ========================================================================== -->
     <div class="sidebar">
         <h2>CareerSuite AI</h2>
         <nav>
@@ -25,15 +50,12 @@
             <a href="planner.html" class="active">📅 AI Task Planner</a>
         </nav>
     </div>
+    
     <div class="main-wrapper">
         <header>
             <h1>AI Executive Summary & Sprint Planner</h1>
             <p>Transform raw meeting notes, unorganized transcripts, or long brain-dumps into optimized roadmap agendas.</p>
         </header>
-
-        <div class="api-key-container" id="apiKeyZone">
-            <input type="password" id="geminiApiKey" class="form-control" placeholder="Enter your Google Gemini API Key to authenticate...">
-        </div>
 
         <div class="grid-layout">
             <!-- Input Section -->
@@ -67,6 +89,7 @@
             </div>
         </div>
     </div>
+
     <script type="module" src="js/planner.js"></script>
 </body>
 </html>

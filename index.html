@@ -23,48 +23,19 @@
         }
 
         /* ==========================================================================
-           2. CINEMATIC LANDING PORTAL VISUAL ARCHITECTURE
+           2. GLOBAL STATIC BACKGROUND CANVAS STAGE (PERMANENT LAYER)
            ========================================================================== */
-        #splashPortalStage {
+        .ambient-background-stage {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 999;
-            background-color: #020617;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            transition: opacity 0.8s cubic-bezier(0.76, 0, 0.24, 1), visibility 0.8s;
-        }
-
-        /* Ambient Dynamic Video Layer */
-        .video-bg-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             z-index: 1;
             pointer-events: none;
+            background-color: #020617;
         }
 
-        .video-bg-container iframe {
-            width: 100vw;
-            height: 56.25vw;
-            min-height: 100vh;
-            min-width: 177.77vh;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            opacity: 0.35;
-        }
-
-        /* Abstract Interaction Canvas Layer */
         #particleCanvas {
             position: absolute;
             top: 0;
@@ -72,34 +43,50 @@
             width: 100%;
             height: 100%;
             z-index: 2;
-            pointer-events: none;
         }
 
-        /* Deep Color Mask Overlay */
         .glass-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, transparent 20%, #020617 85%);
+            background: radial-gradient(circle at center, transparent 10%, #020617 90%);
             z-index: 3;
+        }
+
+        /* ==========================================================================
+           3. INTERACTIVE SLIDE OVERLAY INTERFACE STATE ENTITIES
+           ========================================================================== */
+        #splashPortalStage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+        }
+
+        .portal-dismissed {
+            transform: translateY(-100vh);
+            opacity: 0;
             pointer-events: none;
         }
 
-        /* Main Content Portal Container */
         .portal-core {
-            position: relative;
-            z-index: 4;
             text-align: center;
-            padding: 2rem;
-            transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1), opacity 0.5s ease;
-        }
-
-        /* Out-of-bounds warp animation trigger class */
-        .portal-warp-active {
-            transform: scale(2.2) rotate(10deg);
-            opacity: 0;
+            padding: 3rem;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            max-width: 680px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
         .system-badge {
@@ -119,12 +106,11 @@
 
         .portal-core h1 {
             color: #f8fafc;
-            font-size: 3.5rem;
+            font-size: 3.2rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 1rem;
-            max-width: 600px;
+            line-height: 1.15;
+            margin-bottom: 1.25rem;
         }
 
         .portal-core h1 span {
@@ -135,63 +121,85 @@
 
         p.subtitle {
             color: #94a3b8;
-            font-size: 1.15rem;
-            max-width: 480px;
-            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
             line-height: 1.6;
         }
 
-        /* The Quantum Core Redirect Button */
+        /* --- New API Input Styles --- */
+        .api-key-container {
+            max-width: 400px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .api-input {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            color: #f8fafc;
+            outline: none;
+            font-size: 1rem;
+            text-align: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .api-input:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+        }
+
         .quantum-btn {
-            position: relative;
             background: #ffffff;
             color: #020617;
-            padding: 1.25rem 2.75rem;
-            font-size: 1.1rem;
+            padding: 1.1rem 2.5rem;
+            font-size: 1.05rem;
             font-weight: 700;
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            outline: none;
             box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
             transition: transform 0.2s ease, box-shadow 0.3s ease;
         }
 
         .quantum-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4), 0 0 0 4px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
         }
 
         @keyframes pulse-border {
-            0% { border-color: rgba(59, 130, 246, 0.2); box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
-            100% { border-color: rgba(147, 51, 234, 0.6); box-shadow: 0 0 12px rgba(147, 51, 234, 0.2); }
+            0% { border-color: rgba(59, 130, 246, 0.2); }
+            100% { border-color: rgba(147, 51, 234, 0.6); }
         }
 
         /* ==========================================================================
-           3. APPLICATION DASHBOARD ARCHITECTURE BLOCK
+           4. MAIN APPLICATION DASHBOARD WORKSPACE LAYOUT
            ========================================================================== */
         #mainApplicationWorkspace {
+            position: relative;
+            z-index: 5;
             display: flex;
             width: 100%;
             height: 100%;
             opacity: 0;
-            transform: scale(0.96);
-            transition: opacity 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-            pointer-events: none; /* Prevent interaction until stage initializes */
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1), transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
         }
 
-        /* Activation state triggered by the Core State Engine */
         #mainApplicationWorkspace.workspace-ready {
             opacity: 1;
-            transform: scale(1);
+            transform: translateY(0);
             pointer-events: auto;
         }
 
-        /* Re-incorporate original dashboard structure rules safely */
         .sidebar {
             width: 260px;
-            background-color: #0f172a;
-            border-right: 1px solid #1e293b;
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
             padding: 2rem 1.5rem;
             display: flex;
             flex-direction: column;
@@ -222,7 +230,7 @@
 
         .sidebar nav a:hover, .sidebar nav a.active {
             color: #f8fafc;
-            background-color: #1e293b;
+            background-color: rgba(30, 41, 59, 0.8);
         }
 
         .sidebar nav a.active {
@@ -233,7 +241,6 @@
             flex: 1;
             height: 100%;
             overflow-y: auto;
-            background-color: #020617;
             padding: 2.5rem;
         }
 
@@ -260,8 +267,10 @@
         }
 
         .card {
-            background-color: #0f172a;
-            border: 1px solid #1e293b;
+            background-color: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 12px;
             padding: 1.75rem;
         }
@@ -286,8 +295,8 @@
 
         .form-control {
             width: 100%;
-            background-color: #1e293b;
-            border: 1px solid #334155;
+            background-color: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 0.75rem 1rem;
             color: #f8fafc;
@@ -315,8 +324,8 @@
         }
 
         .stream-container {
-            background-color: #020617;
-            border: 1px solid #1e293b;
+            background-color: rgba(2, 6, 23, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 8px;
             padding: 1.5rem;
             min-height: 150px;
@@ -335,25 +344,33 @@
 <body>
 
     <!-- ==========================================================================
-       STAGE A: SCREEN SPACE INTERACTIVE OVERLAY
+       ISOLATED STATIC BACKGROUND LAYERS
        ========================================================================== -->
-    <div id="splashPortalStage">
-        <div class="video-bg-container">
-            <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4?autoplay=1&mute=1&controls=0&loop=1&playlist=ScMzIvxBSi4&showinfo=0&rel=0&modestbranding=1" frameborder="0" allow="autoplay; encrypted-media"></iframe>
-        </div>
+    <div class="ambient-background-stage">
         <canvas id="particleCanvas"></canvas>
         <div class="glass-overlay"></div>
+    </div>
 
-        <main class="portal-core" id="portalFrame">
-            <div class="system-badge">System Core Online</div>
+    <!-- ==========================================================================
+       OVERLAY PANEL A: INITIAL ENTRY CORE OVERLAY
+       ========================================================================== -->
+    <div id="splashPortalStage">
+        <main class="portal-core">
+            <div class="system-badge">Secure API Link Required</div>
             <h1>Accelerate Your <span>Career Pipeline</span></h1>
-            <p class="subtitle">Deploy targeted parsing engines, orchestrate live pipeline data feeds, and optimize communication loops instantly.</p>
+            <p class="subtitle">Deploy targeted parsing engines and orchestrate live workflows instantly.</p>
+            
+            <!-- Gemini Key Capture Fields -->
+            <div class="api-key-container">
+                <input type="password" id="geminiApiKeyInput" class="api-input" placeholder="Paste Gemini API Key Here..." autocomplete="off">
+            </div>
+
             <button class="quantum-btn" id="portalTrigger">Initialize Workspace</button>
         </main>
     </div>
 
     <!-- ==========================================================================
-       STAGE B: ACTUAL APPLICATION FUNCTIONAL GRID WORKSPACE
+       OVERLAY PANEL B: ACTIVE OPERATIONAL WORKSPACE
        ========================================================================== -->
     <div id="mainApplicationWorkspace">
         <div class="sidebar">
@@ -395,10 +412,10 @@
     </div>
 
     <!-- ==========================================================================
-       ORCHESTRATION ARCHITECTURE SCRIPT LOOPS
+       SCRIPT ENGINE LOGIC
        ========================================================================== -->
     <script>
-        // --- 1. Generative Matrix Background System ---
+        // --- 1. Background Particle Renderer ---
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -446,24 +463,35 @@
         initParticles();
         animateParticles();
 
-        // --- 2. Single-Page State Transition Controller ---
+        // --- 2. State & API Key Session Tracking ---
         const trigger = document.getElementById('portalTrigger');
-        const portalFrame = document.getElementById('portalFrame');
         const splashStage = document.getElementById('splashPortalStage');
         const applicationWorkspace = document.getElementById('mainApplicationWorkspace');
+        const keyInput = document.getElementById('geminiApiKeyInput');
+
+        // Check if an API key was already entered during this active browser session
+        if (sessionStorage.getItem('gemini_api_key')) {
+            // Bypass splash instantly if key is already verified
+            splashStage.style.display = 'none';
+            applicationWorkspace.classList.add('workspace-ready');
+        }
 
         trigger.addEventListener('click', () => {
-            // Trigger the warp scaling explosion animation on text blocks
-            portalFrame.classList.add('portal-warp-active');
-            
-            // Fade out the entire splash overlay stage
-            splashStage.style.opacity = '0';
-            splashStage.style.visibility = 'hidden';
+            const cleanKeyValue = keyInput.value.trim();
 
-            // Bring the dashboard into view smoothly
+            if (!cleanKeyValue) {
+                alert('Please enter a valid Gemini API Key to initialize the interface context core.');
+                keyInput.focus();
+                return;
+            }
+
+            // Commit the API key securely to the current browser tab state window session
+            sessionStorage.setItem('gemini_api_key', cleanKeyValue);
+
+            // Execute clean layout transition matrices
+            splashStage.classList.add('portal-dismissed');
             applicationWorkspace.classList.add('workspace-ready');
             
-            // Set input focus right onto your search control for streamlined usage
             setTimeout(() => {
                 document.getElementById('jobTitleInput').focus();
             }, 600);
