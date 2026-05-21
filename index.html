@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZamaZama AI - End-to-End Graduate Job Suite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="app-header">
+        <h1>ZamaZama <span>AI</span></h1>
+        <p>The Ultimate Graduate Job Search & Application Pipeline</p>
+        
+        <!-- Navigation Tabs -->
+        <nav class="tab-navigation">
+            <button class="nav-tab active" data-target="job-search-tab">🌐 1. Live Job Feed</button>
+            <button class="nav-tab" data-target="resume-tab">📄 2. ATS Resume Builder</button>
+            <button class="nav-tab" data-target="email-tab">✉️ 3. Recruiter Email Drafts</button>
+        </nav>
+    </header>
+
+    <main class="workspace-container">
+        
+        <!-- TAB 1: LIVE JOB FEED (SIMULATED WEB SCRAPER) -->
+        <section id="job-search-tab" class="tab-content active-content">
+            <div class="panel single-panel">
+                <h2>Simulated Real-Time Gauteng Graduate Job Feed</h2>
+                <p class="section-desc">ZamaZama AI aggregates relevant graduate learnerships and junior roles based on your tech profile keywords.</p>
+                
+                <div class="job-list" id="jobFeedContainer">
+                    <!-- Dynamic Job Cards Rendered via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: ATS RESUME BUILDER -->
+        <section id="resume-tab" class="tab-content">
+            <div class="split-layout">
+                <div class="panel input-panel">
+                    <h2>Profile Details</h2>
+                    <form id="ingestionForm">
+                        <div class="form-group">
+                            <label for="degree">Qualification / Degree</label>
+                            <input type="text" id="degree" value="BSc in Mathematics with Informatics" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="institution">Institution</label>
+                            <input type="text" id="institution" value="University of Johannesburg" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="rawExperience">Core Project / Highlight</label>
+                            <textarea id="rawExperience" rows="5" required>Built a bookstore e-commerce web application using C# and SQL Server. Handled the database design, but ran into performance lag when querying large datasets. Solved it by indexing and optimizing queries.</textarea>
+                        </div>
+                        <button type="submit" class="primary-btn">Optimize CV via ZamaZama AI</button>
+                    </form>
+                </div>
+                <div class="panel preview-panel">
+                    <h2>Optimized ATS Profile View</h2>
+                    <div id="outputContent" class="output-placeholder">Click 'Optimize' to view the parsed output.</div>
+                    <button id="triggerExportBtn" class="export-btn" disabled>Export Optimized Content</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: RECRUITER EMAIL DRAFTER -->
+        <section id="email-tab" class="tab-content">
+            <div class="split-layout">
+                <div class="panel input-panel">
+                    <h2>Recruiter Outreach Parameters</h2>
+                    <form id="emailForm">
+                        <div class="form-group">
+                            <label for="recruiterName">Recruiter Name (Optional)</label>
+                            <input type="text" id="recruiterName" placeholder="e.g., Thabo or HR Team">
+                        </div>
+                        <div class="form-group">
+                            <label for="companyName">Target Company</label>
+                            <input type="text" id="companyName" placeholder="e.g., Nedbank" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="roleApplied">Job / Learnership Role</label>
+                            <input type="text" id="roleApplied" placeholder="e.g., Graduate Cloud Intern" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailTone">Tone Persona</label>
+                            <select id="emailTone">
+                                <option value="formal">Formal & Corporate</option>
+                                <option value="confident">Confident Tech Enthusiast</option>
+                                <option value="persuasive">High Motivation / Career Switcher</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="primary-btn">Draft Professional Outreach</button>
+                    </form>
+                </div>
+                <div class="panel preview-panel">
+                    <h2>Generated Email Output</h2>
+                    <div id="emailOutputContent" class="output-placeholder">Your custom tailored recruiter email will draft here...</div>
+                    <button id="copyEmailBtn" class="export-btn" style="background:#10b981;" disabled>Copy Email to Clipboard</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Ethical Guardrail Modal Frame -->
+    <div id="ethicalModal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>🛡️ Responsible AI Compliance Check</h3>
+            <p>ZamaZama AI optimizes text structure to pass corporate HR filters. However, AI can introduce overly ambitious performance phrasing.</p>
+            <p class="warning-text"><strong>Crucial Rule:</strong> Never claim metrics, technical languages, or project milestones you cannot back up in an interview.</p>
+            <label class="checkbox-container">
+                <input type="checkbox" id="verificationCheckbox">
+                I verify that these generated statements accurately map to my true historical capability.
+            </label>
+            <div class="modal-actions">
+                <button id="closeModalBtn" class="secondary-btn">Back to Editor</button>
+                <button id="confirmExportBtn" class="primary-btn" disabled>Confirm & Copy Resume Data</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
